@@ -39,10 +39,10 @@ def get_message(birth_path_num)
   end
 end
 
-# get '/newpage' do
-#
-#   erb :newpage
-# end
+get '/newpage' do
+
+  erb :newpage
+end
 
 
 get '/:birthdate' do

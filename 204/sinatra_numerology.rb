@@ -1,17 +1,17 @@
 require 'sinatra'
 
 def get_birth_path_num(birthdate)
-  number = birthdate[0].to_i + birthdate[1].to_i + birthdate[2].to_i + birthdate[3].to_i + birthdate[4].to_i + birthdate[5].to_i + birthdate[6].to_i + birthdate[7].to_i
+    number = birthdate[0].to_i + birthdate[1].to_i + birthdate[2].to_i + birthdate[3].to_i + birthdate[4].to_i + birthdate[5].to_i + birthdate[6].to_i + birthdate[7].to_i
 
-  number = number.to_s
-  number = number[0].to_i + number[1].to_i
+    number = number.to_s
+    number = number[0].to_i + number[1].to_i
 
-  if number > 9
-      number = number.to_s
-      number = number[0].to_i + number[1].to_i
-  end
+    if number > 9
+        number = number.to_s
+        number = number[0].to_i + number[1].to_i
+    end
 
-  return number
+    return number
 end
 
 def get_message(birth_path_num)
@@ -39,10 +39,10 @@ def get_message(birth_path_num)
   end
 end
 
-# get '/newpage' do
-#
-#   erb :newpage
-# end
+get '/newpage' do
+
+  erb :newpage
+end
 
 
 get '/:birthdate' do
