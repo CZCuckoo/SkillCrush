@@ -1,17 +1,17 @@
 require 'sinatra'
 
 def get_birth_path_num(birthdate)
-    number = birthdate[0].to_i + birthdate[1].to_i + birthdate[2].to_i + birthdate[3].to_i + birthdate[4].to_i + birthdate[5].to_i + birthdate[6].to_i + birthdate[7].to_i
+  number = birthdate[0].to_i + birthdate[1].to_i + birthdate[2].to_i + birthdate[3].to_i + birthdate[4].to_i + birthdate[5].to_i + birthdate[6].to_i + birthdate[7].to_i
 
+  number = number.to_s
+  number = number[0].to_i + number[1].to_i
+
+  if number > 9
     number = number.to_s
     number = number[0].to_i + number[1].to_i
+  end
 
-    if number > 9
-        number = number.to_s
-        number = number[0].to_i + number[1].to_i
-    end
-
-    return number
+  return number
 end
 
 def get_message(birth_path_num)
@@ -39,20 +39,8 @@ def get_message(birth_path_num)
   end
 end
 
-def setup_index_view
-  birthdate = params[:birthdate]
-  birth_path_num = get_birth_path_num(birthdate)
-  @message = get_message(birth_path_num)
-end
-
-def valid_birthdate(input)
-  if
-    # input.length == 8 &&
-    input.match(/^[0-9]+[0-9]$/)
-    return true
-  else
-    return false
-  end
+get '/:birthdate' do
+  setup_index_view
 end
 
 get '/message/:birth_path_num' do
@@ -66,24 +54,27 @@ get '/' do
 end
 
 post '/' do
-  # birthdate = params[:birthdate].gsub("-","")
-  birthdate = params[:birthdate]
-
+  birthdate = params[:birthdate].gsub("-", "")
   if valid_birthdate(birthdate)
-    birth_path_num = get_birth_path_num(params[:birthdate])
+    birth_path_num = get_birth_path_num(birthdate)
     redirect "/message/#{birth_path_num}"
   else
-    @error = "Sorry, your input wasn't valid. Please try again."
-    erb :form
+    @error = "Oops! You should enter a valid birthdate in the form of mmddyyyy. Try again!"
+    erb :form    
   end
 end
 
-get '/newpage' do
-  erb :newpage
+def setup_index_view
+	birthdate = params[:birthdate]
+	birth_path_num = get_birth_path_num(birthdate)
+	@message = get_message(birth_path_num)
+  erb :index
 end
 
-
-get '/:birthdate' do
-	setup_index_view
-	erb :index
+def valid_birthdate(input)
+  if(input.length == 8 && !input.match(/^[0-9]+[0-9]$/).nil?)
+    true
+  else
+    false
+  end
 end
