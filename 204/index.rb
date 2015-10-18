@@ -45,6 +45,14 @@ def setup_index_view
   @message = get_message(birth_path_num)
 end
 
+def valid_birthdate(input)
+  if input.length == 8
+    return true
+  else
+    return false
+  end
+end
+
 get '/message/:birth_path_num' do
   birth_path_num = params[:birth_path_num].to_i
   @message = get_message(birth_path_num)
@@ -56,10 +64,15 @@ get '/' do
 end
 
 post '/' do
-  birthdate = params[:birthdate].gsub("-","")
-  birth_path_num = get_birth_path_num(params[:birthdate])
-  redirect "/message/#{birth_path_num}"
-  # setup_index_view
+  # birthdate = params[:birthdate].gsub("-","")
+  birthdate = params[:birthdate]
+  @error = "Sorry, your input wasn't valid. Please try again."
+  if valid_birthdate(birthdate)
+    birth_path_num = get_birth_path_num(params[:birthdate])
+    redirect "/message/#{birth_path_num}"
+  else
+    erb :form
+  end
 end
 
 get '/newpage' do
