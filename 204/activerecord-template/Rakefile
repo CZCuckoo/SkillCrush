@@ -5,37 +5,6 @@ require 'active_support/core_ext'
 
 require_relative 'config'
 
-# namespace :db do
-#   desc "Drop, create, and migrate the database"
-#   task :reset => [:drop, :create, :migrate]
-#
-#   desc "Create #{APP_NAME} databases"
-#   task "create" do
-#     puts "Creating #{APP_NAME} development and test databases if they don't exist..."
-#     system("createdb #{DB_NAME} --username #{DB_USERNAME} -w --no-password && createdb #{TEST_DB_NAME} --username #{DB_USERNAME} -w --no-password")
-#   end
-#
-#   desc "Drop #{APP_NAME} databases"
-#   task "drop" do
-#     puts "Dropping #{APP_NAME} development and test databases..."
-#     system("dropdb #{DB_NAME} && dropdb #{TEST_DB_NAME}_test")
-#   end
-#
-#   desc "Migrate the database"
-#   task "migrate" do
-#     ActiveRecord::Migrator.migrations_paths << File.dirname(__FILE__) + 'db/migrate'
-#     ActiveRecord::Migration.verbose = true
-#     ActiveRecord::Migrator.migrate(ActiveRecord::Migrator.migrations_paths, nil)
-#   end
-#
-#   desc "Populate the database with sample data"
-#   task "seed" do
-#     require APP_ROOT.join('db', 'seeds.rb')
-#   end
-# end
-
-
-# New code
 namespace :db do
   desc "Drop, create, and migrate the database"
   task :reset => [:drop, :create, :migrate]
@@ -43,8 +12,12 @@ namespace :db do
   desc "Create #{APP_NAME} databases"
   task "create" do
     puts "Creating #{APP_NAME} development and test databases if they don't exist..."
-    system("createdb #{DB_NAME} --username=#{DB_USERNAME} && createdb #{TEST_DB_NAME} --username=#{DB_USERNAME}")
+    system("createdb #{DB_NAME} --username=#{DB_USERNAME} -w --no-password && createdb #{TEST_DB_NAME} --username=#{DB_USERNAME} -w --no-password")
+
   end
+
+    # system("createdb #{DB_NAME} --username=#{DB_USERNAME} -w --no-password && createdb #{TEST_DB_NAME} --username=#{DB_USERNAME} -w --no-password")
+
 
   desc "Drop #{APP_NAME} databases"
   task "drop" do
@@ -54,18 +27,16 @@ namespace :db do
 
   desc "Migrate the database"
   task "migrate" do
-    ActiveRecord::Migrator.migrations_paths << File.dirname(__FILE__) + "db/migrate"
+    ActiveRecord::Migrator.migrations_paths << File.dirname(__FILE__) + 'db/migrate'
     ActiveRecord::Migration.verbose = true
     ActiveRecord::Migrator.migrate(ActiveRecord::Migrator.migrations_paths, nil)
   end
 
   desc "Populate the database with sample data"
   task "seed" do
-    require APP_ROOT.join("db", "seeds.rb")
+    require APP_ROOT.join('db', 'seeds.rb')
   end
 end
-# End new code
-
 
 namespace :generate do
   desc "Create a database migration\n rake generate:migration NAME=create_people"
@@ -98,7 +69,7 @@ end
 
 desc "Run the specs"
 RSpec::Core::RakeTask.new(:spec)
-task :default => :specs
+task :default  => :specs
 
 # Will this not work?
 #desc "Run the specs"
