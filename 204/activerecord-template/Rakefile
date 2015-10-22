@@ -12,12 +12,10 @@ namespace :db do
   desc "Create #{APP_NAME} databases"
   task "create" do
     puts "Creating #{APP_NAME} development and test databases if they don't exist..."
-    system("createdb #{DB_NAME} --username=#{DB_USERNAME} -w --no-password && createdb #{TEST_DB_NAME} --username=#{DB_USERNAME} -w --no-password")
-
-  end
-
+    system("createdb --username=#{DB_USERNAME} #{DB_NAME} && createdb --username=#{DB_USERNAME} #{TEST_DB_NAME} ")
     # system("createdb #{DB_NAME} --username=#{DB_USERNAME} -w --no-password && createdb #{TEST_DB_NAME} --username=#{DB_USERNAME} -w --no-password")
 
+  end
 
   desc "Drop #{APP_NAME} databases"
   task "drop" do
