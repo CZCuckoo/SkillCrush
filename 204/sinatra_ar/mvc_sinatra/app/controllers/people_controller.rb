@@ -1,3 +1,3 @@
 get '/people' do
-   'This is a people page!'
+    erb :"/people/index"
 end
