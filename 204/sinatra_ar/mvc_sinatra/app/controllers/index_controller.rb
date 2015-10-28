@@ -1,7 +1,7 @@
 get '/:birthdate' do
 	setup_index_view
-
 end
+
 get '/message/:birth_path_num' do
   birth_path_num = params[:birth_path_num].to_i
   @message = Person.get_message(birth_path_num)
@@ -14,6 +14,7 @@ end
 
 post '/' do
   birthdate = params[:birthdate]
+	
   if Person.valid_birthdate(birthdate)
     birth_path_num = Person.get_birth_path_num(params[:birthdate])
     redirect "/message/#{birth_path_num}"
