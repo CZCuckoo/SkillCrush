@@ -11,7 +11,7 @@ end
 
 post '/people' do
   if params[:birthdate].blank?
-    return "Oops"
+    birthdate = nil
   elsif
     params[:birthdate].include?("-")
     birthdate = params[:birthdate]
