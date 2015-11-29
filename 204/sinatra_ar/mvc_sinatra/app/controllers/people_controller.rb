@@ -30,25 +30,6 @@ post '/people' do
   end
 end
 
-# Works, but cheating by not having birthdate changed to exclude hyphens
-# post '/people' do
-#
-#     birthdate = params[:birthdate]
-#
-#
-#   @person = Person.new(first_name: params[:first_name], last_name: params[:last_name], birthdate: birthdate)
-#   if @person.valid?
-#     @person.save
-#     redirect "/people/#{@person.id}"
-#   else
-#     @person.errors.full_messages.each do |msg|
-#       @errors = "#{@errors} #{msg}."
-#     end
-#     erb :"/people/new"
-#   end
-# end
-
-
 get '/people/:id/edit' do
   @person = Person.find(params[:id])
   erb :"/people/edit"
