@@ -46,5 +46,5 @@ class Person < ActiveRecord::Base
       false
     end
   end
-
+  
 end

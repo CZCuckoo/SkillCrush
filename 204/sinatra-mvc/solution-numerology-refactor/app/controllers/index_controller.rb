@@ -19,7 +19,7 @@ post '/' do
     redirect "/message/#{birth_path_num}"
   else
     @error = "Oops! You should enter a valid birthdate in the form of mmddyyyy. Try again!"
-    erb :form
+    erb :form    
   end
 end
 
@@ -29,10 +29,3 @@ def setup_index_view
 	@message = Person.get_message(birth_path_num)
   erb :index
 end
-
-# puts "Please give your birthdate in MMDDYYYY format."
-# birthdate = gets
-#
-# birth_path = get_birth_path(birthdate)
-# message = get_message(birth_path)
-# puts messagerest
